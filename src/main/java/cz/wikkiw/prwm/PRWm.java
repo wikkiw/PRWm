@@ -94,19 +94,12 @@ public class PRWm {
                 r = this.chaos.getRndReal() * maxStepLength;
                 
                 /**
-                 * THIS MIGHT BE MOVED ONE FOR LEVEL UP
-                 * Direction change (ping-pong)
+                 * Direction change (ping-pong) modification
                  */
-                if(rnd.nextDouble() <= this.changeProbability){
-                    do{
-                        dimToChange = rnd.nextInt(this.dimension);
-                    } while(dimToChange == changedDimension);
-                    changedDimension = dimToChange;
-                    this.startZone[dimToChange] = (this.startZone[dimToChange]+1) % 2;
+                if(rnd.nextDouble() <= this.changeProbability && dim != changedDimension){
+                    this.startZone[dim] = (this.startZone[dim]+1) % 2;
+                    changedDimension = dim;
                 }
-                /**
-                 * THIS MIGHT BE MOVED ONE FOR LEVEL UP
-                 */
                 
                 if(this.startZone[dim] == 1){
                     r = -r;
