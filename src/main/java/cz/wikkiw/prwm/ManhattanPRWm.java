@@ -108,12 +108,12 @@ public class ManhattanPRWm {
             }
             newPosition[dim] = position[dim] + r;
             
-            if(newPosition[dim] > this.boundary.getMax()){
-                newPosition[dim] = this.boundary.getMax() - (newPosition[dim] - this.boundary.getMax());
+            if((newPosition[dim] + this.stepBoundary) > this.boundary.getMax()){
+//                newPosition[dim] = this.boundary.getMax() - (newPosition[dim] - this.boundary.getMax());
                 this.startZone[dim] = (this.startZone[dim]+1) % 2;
             }
-            if(newPosition[dim] < this.boundary.getMin()){
-                newPosition[dim] = this.boundary.getMin() - (newPosition[dim] - this.boundary.getMin());
+            if((newPosition[dim]-this.stepBoundary) < this.boundary.getMin()){
+//                newPosition[dim] = this.boundary.getMin() - (newPosition[dim] - this.boundary.getMin());
                 this.startZone[dim] = (this.startZone[dim]+1) % 2;
             }
                 
@@ -216,20 +216,20 @@ public class ManhattanPRWm {
     public static void main(String[] args) {
         
         FitnessFunction ff = new Ackley();
-        int dimension = 10;
+        int dimension = 2;
         int stepCount = 10000;
         double stepBoundary = (ff.getBoundary().getRange()*dimension)/1000.0;
         System.out.println(stepBoundary);
         
-        int[] startZone = {1,0,0,0,0,0,0,0,0,0};
+        int[] startZone = {1,0};
         double changeProbability = 0.05;
         
         ManhattanPRWm mprwm = new ManhattanPRWm(dimension, stepCount, stepBoundary, startZone, ff, changeProbability);
         mprwm.walk();
         
-//        for(Individual ind : mprwm.walkIndividuals){
-//            System.out.println(ind);
-//        }
+        for(Individual ind : mprwm.walkIndividuals){
+            System.out.println(ind);
+        }
         System.out.println("========================");
         System.out.println(mprwm.best);
         
