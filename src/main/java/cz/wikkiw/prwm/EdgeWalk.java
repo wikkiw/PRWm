@@ -29,6 +29,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -233,7 +234,7 @@ public class EdgeWalk {
 
                     for(int i=0; i < edge.walkIndividuals.size(); i++){
 
-                        writer.print(edge.walkIndividuals.get(i).getFitness());
+                        writer.print(String.format(Locale.US, "%.10f",edge.walkIndividuals.get(i).getFitness()));
 
                         if(i != edge.walkIndividuals.size()-1){
                             writer.print(",");
