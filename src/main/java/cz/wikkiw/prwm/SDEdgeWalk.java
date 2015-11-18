@@ -48,12 +48,13 @@ public class SDEdgeWalk {
     private Individual best;
     private List<Individual> walkIndividuals;
     
-    final private static double difference = 0.5;
+    private double difference;
 
-    public SDEdgeWalk(int dimension, int stepCount, FitnessFunction ffunction) {
+    public SDEdgeWalk(int dimension, int stepCount, FitnessFunction ffunction, double difference) {
         this.dimension = dimension;
         this.stepCount = stepCount;
         this.ffunction = ffunction;
+        this.difference = difference;
         this.boundary = this.ffunction.getBoundary();
     }
     
@@ -196,6 +197,7 @@ public class SDEdgeWalk {
         int dimension = 10;
         int stepCount = 1000;
         int cuts = dimension;
+        double difference = 0.5;
         
         List<FitnessFunction> list = new ArrayList<>();
         list.add(new Ackley());
@@ -234,7 +236,7 @@ public class SDEdgeWalk {
 
                 for(int cut=0; cut < cuts; cut++){
 
-                    edge = new SDEdgeWalk(dimension, stepCount, ff);
+                    edge = new SDEdgeWalk(dimension, stepCount, ff, difference);
                     edge.walk(cut);
 
                     writer.print("{");
